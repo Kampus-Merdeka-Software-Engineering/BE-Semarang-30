@@ -17,7 +17,7 @@ const Dentist = db.define("dentists", {
 
 export default Dentist;
 
-// If table "User doesn't exist", this function creates it
+// Create table "dentists" if doesn't exist
 (async () => {
   await db.sync();
 })();

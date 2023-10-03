@@ -20,7 +20,7 @@ const Schedule = db.define("dentist_schedules", {
 
 export default Schedule;
 
-// If table "User doesn't exist", this function creates it
+// Create table "dentist_schedules" if doesn't exist
 (async () => {
   await db.sync();
 })();

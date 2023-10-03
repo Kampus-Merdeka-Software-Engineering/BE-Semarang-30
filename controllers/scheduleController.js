@@ -1,6 +1,6 @@
 import Schedule from "../models/scheduleModel.js"; // Import the default export
 
-// find all date
+// find all schedule
 export const findAllSchedule = async (req, res) => {
   try {
     const schedule = await Schedule.findAll();

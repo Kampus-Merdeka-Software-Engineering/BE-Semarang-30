@@ -14,7 +14,7 @@ const Date = db.define("schedule_dates", {
 
 export default Date;
 
-// If table "User doesn't exist", this function creates it
+// Create table "schedule_dates" if doesn't exist
 (async () => {
   await db.sync();
 })();
