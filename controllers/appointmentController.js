@@ -1,21 +1,5 @@
 import Appointment from "../models/appointmentModel.js"; // Import the default export
-
-// find all appointment
-export const findAppointment = async (req, res) => {
-  try {
-    const { dentist_id, dentist_schedule_day } = req.query;
-    const result = await Time.sequelize.query(
-      "SELECT * FROM schedule_times WHERE schedule_time_id IN (SELECT schedule_time_id FROM dentist_schedules WHERE dentist_id = ? AND dentist_schedule_day = ?)",
-      {
-        replacements: [dentist_id, dentist_schedule_day],
-        type: QueryTypes.SELECT,
-      }
-    );
-    res.status(200).json(result);
-  } catch (error) {
-    res.send(error.message);
-  }
-};
+import { QueryTypes } from "sequelize";
 
 export const createAppointment = async (req, res) => {
   try {
@@ -25,3 +9,29 @@ export const createAppointment = async (req, res) => {
     res.send(error.message);
   }
 };
+
+// find all appointment
+export const findAppointment = async (req, res) => {
+  try {
+    const { user_id } = req.query;
+    const result = await Appointment.sequelize.query(
+      "SELECT dentists.dentist_name, schedule_dates.schedule_date_date, DATE_FORMAT(schedule_times.schedule_time_start, '%H:%i') AS schedule_time_start, DATE_FORMAT(schedule_times.schedule_time_end, '%H:%i') AS schedule_time_end FROM appointments JOIN dentists ON appointments.dentist_id = dentists.dentist_id JOIN schedule_dates ON appointments.schedule_date_id = schedule_dates.schedule_date_id JOIN schedule_times ON appointments.schedule_time_id = schedule_times.schedule_time_id WHERE appointments.user_id = ?",
+      {
+        replacements: [user_id],
+        type: QueryTypes.SELECT,
+      }
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    res.send(error.message);
+  }
+};
+
+// export const findAllUser = async (req, res) => {
+//   try {
+//     const users = await Time.findAll();
+//     res.status(200).json(users);
+//   } catch (error) {
+//     res.send(error.message);
+//   }
+// };
