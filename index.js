@@ -6,6 +6,7 @@ import dentistRoute from "./routes/dentistRoute.js";
 import dateRoute from "./routes/dateRoute.js";
 import timeRoute from "./routes/timeRoute.js";
 import scheduleRoute from "./routes/scheduleRoute.js";
+import appointmentRoute from "./routes/appointmentRoute.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -15,11 +16,11 @@ app.use(cors());
 
 // Route
 app.use(userRoute);
-// app.use(bookingRoute);
 app.use(dentistRoute);
 app.use(dateRoute);
 app.use(timeRoute);
 app.use(scheduleRoute);
+app.use(appointmentRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

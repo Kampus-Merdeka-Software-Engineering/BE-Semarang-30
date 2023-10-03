@@ -1,29 +1,28 @@
 import { DataTypes } from "sequelize";
 import db from "../config/database.js";
 
-const Booking = db.define("user", {
-  user_id: {
+const Appointment = db.define("appointments", {
+  appointment_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  user_username: {
+  user_id: {
     type: DataTypes.STRING,
   },
-  user_email: {
+  dentist_id: {
     type: DataTypes.STRING,
   },
-  user_phone_number: {
+  schedule_date_id: {
     type: DataTypes.STRING,
   },
-  user_password: {
+  schedule_time_id: {
     type: DataTypes.STRING,
   },
 });
 
-export default User;
+export default Appointment;
 
-// If table "User doesn't exist", this function creates it
 (async () => {
   await db.sync();
 })();
