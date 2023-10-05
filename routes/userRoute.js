@@ -2,6 +2,7 @@ import express from "express";
 
 import {
   signUpUser,
+  findUser,
   loginUser,
   logoutUser,
   checkLogin,
@@ -10,6 +11,7 @@ import {
 const router = express.Router();
 
 router.post("/users", signUpUser);
+router.get("/users", findUser);
 router.get("/users/login", loginUser);
 router.get("/users/logout", logoutUser);
 router.get("/users/check-login", checkLogin);

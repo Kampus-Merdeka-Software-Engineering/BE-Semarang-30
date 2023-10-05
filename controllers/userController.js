@@ -11,6 +11,20 @@ export const signUpUser = async (req, res) => {
   }
 };
 
+// find user
+export const findUser = async (req, res) => {
+  try {
+    const { user_id } = req.query;
+    const result = await User.findOne({
+      where: { user_id: user_id },
+      attributes: { exclude: ["user_password"] },
+    });
+    res.status(200).json(result);
+  } catch (error) {
+    res.send(error.message);
+  }
+};
+
 // login user
 export const loginUser = async (req, res) => {
   try {
