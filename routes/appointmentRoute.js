@@ -7,6 +7,6 @@ import {
 const router = express.Router();
 
 router.post("/appointments", createAppointment);
-router.get("/appointments", findAppointment);
+router.get("/appointments/find", findAppointment);
 
 export default router;

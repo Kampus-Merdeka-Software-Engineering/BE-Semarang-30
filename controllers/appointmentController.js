@@ -10,12 +10,12 @@ export const createAppointment = async (req, res) => {
   }
 };
 
-// find all appointment
+// find appointment
 export const findAppointment = async (req, res) => {
   try {
     const { user_id } = req.query;
     const result = await Appointment.sequelize.query(
-      "SELECT dentists.dentist_name, schedule_dates.schedule_date_date, DATE_FORMAT(schedule_times.schedule_time_start, '%H:%i') AS schedule_time_start, DATE_FORMAT(schedule_times.schedule_time_end, '%H:%i') AS schedule_time_end FROM appointments JOIN dentists ON appointments.dentist_id = dentists.dentist_id JOIN schedule_dates ON appointments.schedule_date_id = schedule_dates.schedule_date_id JOIN schedule_times ON appointments.schedule_time_id = schedule_times.schedule_time_id WHERE appointments.user_id = ?",
+      "SELECT dentists.dentist_name, schedule_dates.schedule_date_date, DATE_FORMAT(schedule_times.schedule_time_start, '%H:%i') AS schedule_time_start, DATE_FORMAT(schedule_times.schedule_time_end, '%H:%i') AS schedule_time_end FROM appointments JOIN dentists ON appointments.dentist_id = dentists.dentist_id JOIN schedule_dates ON appointments.schedule_date_id = schedule_dates.schedule_date_id JOIN schedule_times ON appointments.schedule_time_id = schedule_times.schedule_time_id WHERE appointments.user_id = ? ORDER BY appointments.appointment_id DESC LIMIT 1",
       {
         replacements: [user_id],
         type: QueryTypes.SELECT,
@@ -26,12 +26,3 @@ export const findAppointment = async (req, res) => {
     res.send(error.message);
   }
 };
-
-// export const findAllUser = async (req, res) => {
-//   try {
-//     const users = await Time.findAll();
-//     res.status(200).json(users);
-//   } catch (error) {
-//     res.send(error.message);
-//   }
-// };

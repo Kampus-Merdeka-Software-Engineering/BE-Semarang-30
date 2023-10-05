@@ -1,5 +1,6 @@
 import "dotenv/config.js";
 import express from "express";
+import session from "express-session";
 import cors from "cors";
 import userRoute from "./routes/userRoute.js";
 import dentistRoute from "./routes/dentistRoute.js";
@@ -12,6 +13,14 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
+app.use(
+  session({
+    secret: "ourorthos",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+  })
+);
 app.use(cors());
 
 // Route
