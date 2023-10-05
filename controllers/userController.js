@@ -38,20 +38,11 @@ export const loginUser = async (req, res) => {
     );
 
     if (result.length > 0) {
-      // Store user_id in the session
       req.session.user_id = result[0].user_id;
-      req.session.save((err) => {
-        if (err) {
-          // Handle session save error
-        } else {
-          // Session saved successfully
-          console.log("hiii", req.session.user_id);
-
-          res.status(200).json({
-            message: "Login successful",
-            user_id: req.session.user_id,
-          });
-        }
+      console.log(req.session.user_id);
+      res.status(200).json({
+        message: "Login successful",
+        user_id: req.session.user_id,
       });
     } else {
       res.status(401).json({ message: "Authentication failed" });
