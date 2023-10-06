@@ -25,25 +25,37 @@ export const findUser = async (req, res) => {
   }
 };
 
+// find user
+export const findUserEmail = async (req, res) => {
+  try {
+    const { user_email } = req.query;
+    const result = await User.findOne({
+      where: { user_email: user_email },
+      attributes: { exclude: ["user_password"] },
+    });
+    res.status(200).json(result);
+  } catch (error) {
+    res.send(error.message);
+  }
+};
+
 // login user
 export const loginUser = async (req, res) => {
   try {
     const { user_email, user_password } = req.query;
-    const result = await User.sequelize.query(
-      "SELECT * FROM users WHERE user_email = ? AND user_password = ?",
-      {
-        replacements: [user_email, user_password],
-        type: QueryTypes.SELECT,
-      }
-    );
+    const result = await User.findOne({
+      where: { user_email: user_email, user_password: user_password },
+    });
 
-    if (result.length > 0) {
-      req.session.user_id = result[0].user_id;
+    if (result) {
+      console.log(result.user_id);
+      req.session.user_id = result.user_id;
       console.log(req.session.user_id);
       res.status(200).json({
         message: "Login successful",
         user_id: req.session.user_id,
       });
+      console.log(req.session.user_id);
     } else {
       res.status(401).json({ message: "Authentication failed" });
     }
@@ -65,21 +77,19 @@ export const logoutUser = async (req, res) => {
 // check if logged in
 export const checkLogin = async (req, res) => {
   try {
-    console.log("asdasd", req.session.user_id);
-
     if (req.session.user_id) {
-      // User is logged in
-      console.log("asdasd", req.session.user_id);
+      const userIdFromSession = req.session.user_id;
+      // Now you can use userIdFromSession as needed in this route
       res.json({
-        message: `there is a user ${req.session.user_id}`,
-        loggedIn: true,
-        user_id: req.session.user_id,
+        message: `User ID from session: ${userIdFromSession}`,
+        user_id: userIdFromSession,
       });
     } else {
       // User is not logged in
       res.json({
-        loggedIn: false,
+        message: `User is not logged in`,
       });
+      console.log("asdas");
     }
   } catch (error) {
     res.send(error.message);
