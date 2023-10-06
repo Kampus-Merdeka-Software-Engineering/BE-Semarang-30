@@ -1,5 +1,4 @@
 import User from "../models/userModel.js";
-import { QueryTypes } from "sequelize";
 
 // user register
 export const signUpUser = async (req, res) => {
