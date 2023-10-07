@@ -22,8 +22,3 @@ const Dentist = db.define(
 );
 
 export default Dentist;
-
-// Create table "dentists" if doesn't exist
-(async () => {
-  await db.sync();
-})();

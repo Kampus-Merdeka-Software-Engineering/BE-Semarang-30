@@ -16,7 +16,7 @@ const Schedule = db.define(
       type: DataTypes.STRING,
     },
     schedule_time_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
   },
   {
@@ -25,8 +25,3 @@ const Schedule = db.define(
 );
 
 export default Schedule;
-
-// Create table "dentist_schedules" if doesn't exist
-(async () => {
-  await db.sync();
-})();
