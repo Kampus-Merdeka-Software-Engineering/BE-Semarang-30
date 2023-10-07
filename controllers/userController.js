@@ -47,14 +47,11 @@ export const loginUser = async (req, res) => {
     });
 
     if (result) {
-      console.log(result.user_id);
       req.session.user_id = result.user_id;
-      console.log(req.session.user_id);
       res.status(200).json({
         message: "Login successful",
         user_id: req.session.user_id,
       });
-      console.log(req.session.user_id);
     } else {
       res.status(401).json({ message: "Authentication failed" });
     }
@@ -78,7 +75,6 @@ export const checkLogin = async (req, res) => {
   try {
     if (req.session.user_id) {
       const userIdFromSession = req.session.user_id;
-      // Now you can use userIdFromSession as needed in this route
       res.json({
         message: `User ID from session: ${userIdFromSession}`,
         user_id: userIdFromSession,
@@ -88,7 +84,6 @@ export const checkLogin = async (req, res) => {
       res.json({
         message: `User is not logged in`,
       });
-      console.log("asdas");
     }
   } catch (error) {
     res.send(error.message);
