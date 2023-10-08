@@ -47,43 +47,13 @@ export const loginUser = async (req, res) => {
     });
 
     if (result) {
-      req.session.user_id = result.user_id;
       res.status(200).json({
         message: "Login successful",
-        user_id: req.session.user_id,
+        user_id: result.user_id,
+        user_username: result.user_username,
       });
     } else {
       res.status(401).json({ message: "Authentication failed" });
-    }
-  } catch (error) {
-    res.send(error.message);
-  }
-};
-
-// logout user
-export const logoutUser = async (req, res) => {
-  try {
-    req.session.destroy();
-    res.status(200).json({ message: "Logout successful" });
-  } catch (error) {
-    res.send(error.message);
-  }
-};
-
-// check if logged in
-export const checkLogin = async (req, res) => {
-  try {
-    if (req.session.user_id) {
-      const userIdFromSession = req.session.user_id;
-      res.json({
-        message: `User ID from session: ${userIdFromSession}`,
-        user_id: userIdFromSession,
-      });
-    } else {
-      // User is not logged in
-      res.json({
-        message: `User is not logged in`,
-      });
     }
   } catch (error) {
     res.send(error.message);

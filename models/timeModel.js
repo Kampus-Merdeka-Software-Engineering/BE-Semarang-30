@@ -22,8 +22,3 @@ const Time = db.define(
 );
 
 export default Time;
-
-// Create table "schedule_times" if doesn't exist
-(async () => {
-  await db.sync();
-})();

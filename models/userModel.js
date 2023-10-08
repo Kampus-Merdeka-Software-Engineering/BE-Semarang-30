@@ -19,8 +19,3 @@ const User = db.define("users", {
 });
 
 export default User;
-
-// Create table "users" if doesn't exist
-(async () => {
-  await db.sync();
-})();

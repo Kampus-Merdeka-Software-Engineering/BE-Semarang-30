@@ -8,21 +8,17 @@ const Appointment = db.define("appointments", {
     autoIncrement: true,
   },
   user_id: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
   },
   dentist_id: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
   },
   schedule_date_id: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
   },
   schedule_time_id: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
   },
 });
 
 export default Appointment;
-
-(async () => {
-  await db.sync();
-})();

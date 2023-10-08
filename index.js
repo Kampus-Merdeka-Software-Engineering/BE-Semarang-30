@@ -1,7 +1,7 @@
 import "dotenv/config.js";
 import express from "express";
-import session from "express-session";
 import cors from "cors";
+import db from "./config/database.js";
 import userRoute from "./routes/userRoute.js";
 import dentistRoute from "./routes/dentistRoute.js";
 import dateRoute from "./routes/dateRoute.js";
@@ -13,14 +13,6 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
-app.use(
-  session({
-    secret: "ourorthos",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false },
-  })
-);
 app.use(cors());
 
 // Route
@@ -31,6 +23,12 @@ app.use(timeRoute);
 app.use(scheduleRoute);
 app.use(appointmentRoute);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// db.sync() is to synchronize all models at once
+db.sync({ alter: true })
+  .then(() => {
+    console.log("Databse connected");
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((error) => console.log(`Unable to connect to database ${error}`));
