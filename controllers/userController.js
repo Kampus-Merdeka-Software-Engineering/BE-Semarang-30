@@ -24,7 +24,7 @@ export const findUser = async (req, res) => {
   }
 };
 
-// find user
+// find user email
 export const findUserEmail = async (req, res) => {
   try {
     const { user_email } = req.query;
@@ -41,7 +41,7 @@ export const findUserEmail = async (req, res) => {
 // login user
 export const loginUser = async (req, res) => {
   try {
-    const { user_email, user_password } = req.query;
+    const { user_email, user_password } = req.body;
     const result = await User.findOne({
       where: { user_email: user_email, user_password: user_password },
     });
